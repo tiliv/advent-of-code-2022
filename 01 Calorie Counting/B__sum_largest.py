@@ -14,20 +14,20 @@ def get_data() -> str:
         return f.read().strip()
 
 
-def iter_inventories(data: str) -> list[Inventory]:
+def iter_inventories(data: str) -> typing.Iterator[Inventory]:
     """Split each separated grouping into a list of ints."""
     for group in data.split('\n\n'):
         yield [int(line) for line in group.split('\n')]
 
 
-def find_largest_groups(groups: list[Inventory], n=3) -> Inventory:
+def find_largest_groups(groups: list[Inventory], n=3) -> list[Inventory]:
     """Return the `n` largest inventories by sum."""
     return sorted(groups, key=sum, reverse=True)[:n]
 
 
 @dataclasses.dataclass
 class LargestGroupsResult:
-    groups: Inventory
+    groups: list[Inventory]
     sum: int
 
     def __repr__(self) -> str:

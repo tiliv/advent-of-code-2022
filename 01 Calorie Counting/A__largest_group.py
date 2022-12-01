@@ -1,5 +1,4 @@
 import dataclasses
-import itertools
 import pprint
 import pathlib
 import typing
@@ -14,7 +13,7 @@ def get_data() -> str:
         return f.read().strip()
 
 
-def iter_inventories(data: str) -> list[Inventory]:
+def iter_inventories(data: str) -> typing.Iterator[Inventory]:
     """Split each separated grouping into a list of ints."""
     for group in data.split('\n\n'):
         yield [int(line) for line in group.split('\n')]
