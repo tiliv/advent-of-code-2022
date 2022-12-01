@@ -33,7 +33,7 @@ class LargestGroupResult:
         return f"sum({pprint.pformat(self.group)}) = {self.sum}"
 
     @classmethod
-    def get(cls) -> typing.Self:
+    def get(cls) -> typing.Self:  # type: ignore
         data = get_data()
         groups = list(iter_inventories(data))
         group = find_largest_group(groups)

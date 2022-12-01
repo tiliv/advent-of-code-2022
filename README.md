@@ -6,6 +6,7 @@ Requirements:
 Dev requirements:
 - poetry
 - pytest
+- mypy (optional, note that only dev trunk has typing.Self)
 
 
 Design goals:
