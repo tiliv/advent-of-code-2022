@@ -17,7 +17,7 @@ Design goals:
 - Produce all final results as a dataclass of crunched result
 - Result dataclass has a classmethod trigger to run main task
 - Each file runnable directly with printed result dataclass
-- Pytest support inside each task file
+- Embed a pytest function inside each task file
 
 ## Setup
 
