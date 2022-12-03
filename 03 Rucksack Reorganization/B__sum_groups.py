@@ -4,6 +4,8 @@ import pathlib
 import pprint
 import typing
 
+import pytest
+
 alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 priorities: dict[str, int] = dict(map(reversed, enumerate(alphabet, 1)))  # type: ignore
 
@@ -37,12 +39,10 @@ class PrioritiesResult:
         return cls(values, sum(values))
 
 
-def test():
-    print(result := PrioritiesResult.get(SAMPLE))
-    assert result.sum == 70
-
-    print(result := PrioritiesResult.get(INPUT))
-    assert result.sum == 2641
+@pytest.mark.parametrize("filename, expected", [(SAMPLE, 70), (INPUT, 2641)])
+def test(filename, expected):
+    print(result := PrioritiesResult.get(filename))
+    assert result.sum == expected
 
 
 if __name__ == '__main__':

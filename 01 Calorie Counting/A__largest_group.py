@@ -3,13 +3,18 @@ import pprint
 import pathlib
 import typing
 
+import pytest
+
 Inventory = list[int]
-INPUT_FILE = pathlib.Path(__file__).parent / 'data.txt'
+SAMPLE, INPUT = (
+    str((dir := pathlib.Path(__file__).parent) / "sample.txt"),
+    str(dir / "data.txt"),
+)
 
 
-def get_data() -> str:
+def get_data(filename: str) -> str:
     """Return whole file as a stripped string."""
-    with open(INPUT_FILE) as f:
+    with open(filename) as f:
         return f.read().strip()
 
 
@@ -33,16 +38,17 @@ class LargestGroupResult:
         return f"sum({pprint.pformat(self.group)}) = {self.sum}"
 
     @classmethod
-    def get(cls) -> typing.Self:  # type: ignore
-        data = get_data()
+    def get(cls, filename: str) -> typing.Self:  # type: ignore
+        data = get_data(filename)
         groups = list(iter_inventories(data))
         group = find_largest_group(groups)
         return cls(group, sum(group))
 
 
-def test():
-    print(result := LargestGroupResult.get())
-    assert result.sum == 74711
+@pytest.mark.parametrize("filename, expected", [(SAMPLE, 24000), (INPUT, 74711)])
+def test(filename, expected):
+    print(result := LargestGroupResult.get(filename))
+    assert result.sum == expected
 
 
 if __name__ == '__main__':

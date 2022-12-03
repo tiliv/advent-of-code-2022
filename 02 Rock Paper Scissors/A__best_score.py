@@ -3,15 +3,17 @@ import itertools
 import pathlib
 import typing
 
-INPUT_FILE, SAMPLE_FILE = (
-    str((dir := pathlib.Path(__file__).parent) / "data.txt"),
-    str(dir / "sample_data.txt"),
+import pytest
+
+SAMPLE, INPUT = (
+    str((dir := pathlib.Path(__file__).parent) / "sample.txt"),
+    str(dir / "data.txt"),
 )
 value = lambda mark: "ABCXYZ".index(mark) % 3
 award = lambda m1, m2: 1 + value(m2) + [3, 0, 6][value(m1) - value(m2)]
 
 
-def get_data(filename: str = INPUT_FILE) -> typing.Iterator[list[str]]:
+def get_data(filename: str) -> typing.Iterator[list[str]]:
     with open(filename) as f:
         yield from (line.split() for line in f.readlines())
 
@@ -30,12 +32,10 @@ class TotalScoreResult:
         return cls(rounds, sum(rounds))
 
 
-def test():
-    print(result := TotalScoreResult.get(SAMPLE_FILE))
-    assert result.points == 15
-
-    print(result := TotalScoreResult.get(INPUT_FILE))
-    assert result.points == 12458
+@pytest.mark.parametrize("filename, expected", [(SAMPLE, 15), (INPUT, 12458)])
+def test(filename, expected):
+    print(result := TotalScoreResult.get(filename))
+    assert result.points == expected
 
 
 if __name__ == '__main__':
