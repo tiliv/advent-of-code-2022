@@ -34,6 +34,9 @@ poetry env use 3.11.0b5
 
 poetry install
 poetry shell
-(.venv) python '01 Counting Calories/A__largest_group.py'
 (.venv) pytest  # run everything and verify
+(.venv) cd '01 Calorie Counting'
+(.venv) pytest  # run a single day
+(.venv) pytest A__largest_group.py  # run a single task
+(.venv) python A__ruthless.py  # run minimalist version
 ```
