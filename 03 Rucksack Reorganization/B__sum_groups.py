@@ -36,7 +36,7 @@ class PrioritiesResult:
             for i in range(0, len(lines), 3)
             if (group := lines[i:i+3])]
         values: list[int] = list(map(priorities.__getitem__, letters))
-        return cls(values, sum(values))
+        return cls(values[:3], sum(values))
 
 
 @pytest.mark.parametrize("filename, expected", [(SAMPLE, 70), (INPUT, 2641)])

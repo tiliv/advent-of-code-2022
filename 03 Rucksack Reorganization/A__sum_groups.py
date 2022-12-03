@@ -39,7 +39,7 @@ class PrioritiesResult:
                 set.intersection,
                 map(set, (line[:n], line[n:]))))  # type: ignore
         )
-        return cls(values, sum(values))
+        return cls(values[:1], sum(values))
 
 
 @pytest.mark.parametrize("filename, expected", [(SAMPLE, 157), (INPUT, 8401)])
