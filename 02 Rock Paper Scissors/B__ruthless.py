@@ -9,6 +9,6 @@ def solve(mark: str, strategy: str) -> str:
 
 with open("data.txt") as f:
     assert 12683 == sum(
-        award(*([solve(*(pair := line.split()))] + pair[:1])[::-1])
-        for line in f.readlines()
+        award(m1, solve(m1, strategy))
+        for m1, strategy in (line.split() for line in f.readlines())
     )
