@@ -12,7 +12,7 @@ Dev requirements:
 Design goals:
 - No dependencies
 - Don't require any `__init__.py` files
-- Prefer iterators & their `typing` decorations
+- Prefer iterators & their `typing` annotations
 - Don't consume iterators until strategically important
 - Look for reasons to use `yield from`
 - Look for reasons to use `match`
