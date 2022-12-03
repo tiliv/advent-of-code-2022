@@ -2,8 +2,8 @@ import functools
 
 start, alphabet = 1, "abcdefghijklmnopqrstuvwxyz"
 priorities: dict[int, str] = {
-    **dict(map(reversed, list(enumerate(alphabet, 1)))),
-    **dict(map(reversed, list(enumerate(alphabet.upper(), 27)))),
+    **dict(map(reversed, enumerate(alphabet, 1))),
+    **dict(map(reversed, enumerate(alphabet.upper(), 27))),
 }
 
 with open("data.txt") as f:
