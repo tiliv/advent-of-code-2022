@@ -1,4 +1,5 @@
 import dataclasses
+import itertools
 import pathlib
 import typing
 
@@ -25,10 +26,7 @@ class TotalScoreResult:
 
     @classmethod
     def get(cls, filename: str) -> typing.Self:  # type: ignore
-        rounds: list[int] = [
-            award(m1, m2)
-            for m1, m2 in get_data(filename)
-        ]
+        rounds: list[int] = list(itertools.starmap(award, get_data(filename)))
         return cls(rounds, sum(rounds))
 
 
