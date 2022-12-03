@@ -11,7 +11,7 @@ SAMPLE, INPUT = (
 )
 SOLUTIONS = dict("AY BZ CX".split())  # type: ignore
 value = lambda mark: "ABCXYZ".index(mark) % 3
-award = lambda m1, m2: 1 + value(m2) + [3, 0, 6][value(m1) - value(m2)]
+award = lambda m1, m2: 1 + value(m2) + 3 * [1, 2, 0][value(m2) - value(m1)]
 
 
 def get_data(filename: str) -> typing.Iterator[list[str]]:
