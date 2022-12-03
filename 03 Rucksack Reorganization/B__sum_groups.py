@@ -1,7 +1,6 @@
 import dataclasses
 import functools
 import pathlib
-import pprint
 import typing
 
 import pytest
@@ -26,7 +25,7 @@ class PrioritiesResult:
     sum: int
 
     def __repr__(self) -> str:
-        return f"sum({pprint.pformat(self.priorities)}) = {self.sum}"
+        return f"sum({self.priorities}...) = {self.sum}"
 
     @classmethod
     def get(cls, filename: str) -> typing.Self:  # type: ignore
@@ -36,7 +35,7 @@ class PrioritiesResult:
             for i in range(0, len(lines), 3)
             if (group := lines[i:i+3])]
         values: list[int] = list(map(priorities.__getitem__, letters))
-        return cls(values[:3], sum(values))
+        return cls(values, sum(values))
 
 
 @pytest.mark.parametrize("filename, expected", [(SAMPLE, 70), (INPUT, 2641)])
