@@ -1,7 +1,7 @@
 import functools
 
 alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-priorities: dict[int, str] = dict(map(reversed, enumerate(alphabet, 1)))  # type: ignore
+priorities: dict[str, int] = dict(map(reversed, enumerate(alphabet, 1)))  # type: ignore
 
 with open("data.txt") as f:
     lines = f.readlines()
