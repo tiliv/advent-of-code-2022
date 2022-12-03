@@ -1,33 +1,18 @@
 import dataclasses
-import enum
 import pathlib
 import typing
 
-SOLUTIONS: dict[str, str] = dict("AY BZ CX".split())  # type: ignore
+INPUT_FILE, SAMPLE_FILE = (
+    str((dir := pathlib.Path(__file__).parent) / "data.txt"),
+    str(dir / "sample_data.txt"),
+)
+value = lambda mark: "ABCXYZ".index(mark) % 3
+award = lambda m1, m2: 1 + value(m2) + [3, 0, 6][value(m1) - value(m2)]
 
 
-class Mark(enum.IntEnum):
-    A = 1; B = 2; C = 3
-    X = 1; Y = 2; Z = 3
-
-
-class Award(enum.IntEnum):
-    WIN = 6
-    DRAW = 3
-    LOSS = 0
-
-
-def get_data() -> typing.Iterator[str]:
-    with open(pathlib.Path(__file__).parent / 'data.txt') as f:
-        yield from f.readlines()
-
-
-def get_award(m1: str, m2: str) -> Award:
-    if Mark[m1] == Mark[m2]:
-        return Award.DRAW
-    elif Mark[m2] == Mark[SOLUTIONS[m1]]:
-        return Award.WIN
-    return Award.LOSS
+def get_data(filename: str = INPUT_FILE) -> typing.Iterator[list[str]]:
+    with open(filename) as f:
+        yield from (line.split() for line in f.readlines())
 
 
 @dataclasses.dataclass
@@ -39,19 +24,21 @@ class TotalScoreResult:
         return f"sum([ ... {len(self.rounds)} rounds ... ]) = {self.points}"
 
     @classmethod
-    def get(cls) -> typing.Self:  # type: ignore
-        iter_marks = (line.split() for line in get_data())
+    def get(cls, filename: str) -> typing.Self:  # type: ignore
         rounds: list[int] = [
-            Mark[m2].value + get_award(m1, m2).value
-            for m1, m2 in iter_marks
+            award(m1, m2)
+            for m1, m2 in get_data(filename)
         ]
         return cls(rounds, sum(rounds))
 
 
 def test():
-    print(result := TotalScoreResult.get())
+    print(result := TotalScoreResult.get(SAMPLE_FILE))
+    assert result.points == 15
+
+    print(result := TotalScoreResult.get(INPUT_FILE))
     assert result.points == 12458
 
 
 if __name__ == '__main__':
-    print(TotalScoreResult.get())
+    print(TotalScoreResult.get(INPUT_FILE))
