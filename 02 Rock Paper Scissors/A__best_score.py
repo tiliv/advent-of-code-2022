@@ -39,4 +39,4 @@ def test():
 
 
 if __name__ == '__main__':
-    print(TotalScoreResult.get(INPUT_FILE))
+    test()
