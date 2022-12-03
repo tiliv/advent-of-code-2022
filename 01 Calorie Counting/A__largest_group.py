@@ -52,4 +52,5 @@ def test(filename, expected):
 
 
 if __name__ == '__main__':
-    test()
+    import subprocess
+    subprocess.run([f"../.venv/bin/pytest", __file__], shell=True)
