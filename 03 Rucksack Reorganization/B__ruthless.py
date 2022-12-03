@@ -1,11 +1,8 @@
 import functools
 import itertools
 
-start, alphabet = 1, "abcdefghijklmnopqrstuvwxyz"
-priorities: dict[int, str] = {
-    **dict(map(reversed, enumerate(alphabet, 1))),
-    **dict(map(reversed, enumerate(alphabet.upper(), 27))),
-}
+alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+priorities: dict[int, str] = dict(map(reversed, enumerate(alphabet, 1)))
 
 def batched(iterable: list, size: int):
     it = iter(iterable)
