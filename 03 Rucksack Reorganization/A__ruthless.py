@@ -1,6 +1,6 @@
 import functools
 
-start, alphabet = 1, "abcdefghijklmnopqrstuvwxyz"
+alphabet = "abcdefghijklmnopqrstuvwxyz"
 priorities: dict[str, int] = {
     **dict(map(reversed, enumerate(alphabet, 1))),  # type: ignore
     **dict(map(reversed, enumerate(alphabet.upper(), 27))),  # type: ignore
