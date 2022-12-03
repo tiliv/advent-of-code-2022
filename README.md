@@ -15,6 +15,8 @@ Design goals:
 - Prefer iterators & their `typing` decorations
 - Don't consume iterators until strategically important
 - Look for reasons to use `yield from`
+- Look for reasons to use `match`
+- Find walrus operations that I love and that I hate
 - Produce all final results as a dataclass of crunched result
 - Result dataclass has a classmethod trigger to run main task
 - Each file runnable directly with printed result dataclass
